@@ -47,6 +47,7 @@ module powerbi.extensibility.visual {
             private rect: d3.Selection<SVGElement>;
             private measureValue: d3.Selection<SVGElement>;
             private measureLabel: d3.Selection<SVGElement>;
+            private tooltipServiceWrapper: ITooltipServiceWrapper;
 
         /** Runs on instantiation */
             constructor(options: VisualConstructorOptions) {
