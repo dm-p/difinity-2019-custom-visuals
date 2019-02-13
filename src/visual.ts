@@ -26,6 +26,10 @@
 
 module powerbi.extensibility.visual {
     "use strict";
+
+    /** External dependencies */
+        import valueFormatter = powerbi.extensibility.utils.formatting.valueFormatter;
+
     export class Visual implements IVisual {
         
         /** Properties */
