@@ -167,6 +167,25 @@ module powerbi.extensibility.visual {
                             })
                             .style('font-size', `${measureLabelFontSize}px`);
 
+                /** Tooltip */
+
+                    /** Empty array of tooltip data */
+                        let tooltips: VisualTooltipDataItem[] = [];
+
+                    /** Add the measure data */
+                            tooltips.push({
+                                displayName: measureDisplayLabel,
+                                value: measureFormatted,
+                                color: this.settings.card.fillColour
+                            });
+
+                    /** Bind the tooltip event and data */
+                        this.tooltipServiceWrapper.addTooltip(
+                            this.svg,
+                            (eventArgs: TooltipEventArgs<number>) => tooltips
+                        );
+
+
             }
 
         /** Parses the settings out of the data view */
