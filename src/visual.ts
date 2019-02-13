@@ -125,7 +125,7 @@ module powerbi.extensibility.visual {
 
                     /** Render measure label text */
                         this.measureLabel
-                            .text('Label')
+                            .text(dataView.metadata.columns[0].displayName)
                             .attr({
                                 x: '50%',
                                 y: height / 2,
