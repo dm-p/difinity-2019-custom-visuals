@@ -28,7 +28,14 @@ module powerbi.extensibility.visual {
     "use strict";
 
     /** External dependencies */
-        import valueFormatter = powerbi.extensibility.utils.formatting.valueFormatter;
+        
+        /** powerbi.extensibility.utils.formatting */
+            import valueFormatter = powerbi.extensibility.utils.formatting.valueFormatter;
+
+        /** powerbi.extensibility.utils.tooltip */
+            import tooltip = powerbi.extensibility.utils.tooltip;
+            import TooltipEventArgs = powerbi.extensibility.utils.tooltip.TooltipEventArgs;
+            import ITooltipServiceWrapper = powerbi.extensibility.utils.tooltip.ITooltipServiceWrapper;   
 
     export class Visual implements IVisual {
         
