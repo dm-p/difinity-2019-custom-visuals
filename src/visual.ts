@@ -117,7 +117,7 @@ module powerbi.extensibility.visual {
                         this.measureValue
                             .text(
                                 valueFormatter.format(
-                                    dataView.single.value, 
+                                    dataView.categorical.values[0].values[0], 
                                     dataView.metadata.columns[0].format
                                 )
                             )
