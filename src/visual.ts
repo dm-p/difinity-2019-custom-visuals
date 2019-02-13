@@ -79,6 +79,12 @@ module powerbi.extensibility.visual {
                             .append('text')
                             .classed('textLabel', true);
 
+                /** Instantiate the tooltipWrapper */
+                    this.tooltipServiceWrapper = tooltip.createTooltipServiceWrapper(
+                        options.host.tooltipService,
+                        options.element
+                    );
+
             }
 
         /** Runs when the visual is updated with valid data roles */
