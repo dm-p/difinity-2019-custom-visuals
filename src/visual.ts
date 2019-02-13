@@ -115,7 +115,12 @@ module powerbi.extensibility.visual {
 
                     /** Render measure text */
                         this.measureValue
-                            .text(dataView.single.value as string)
+                            .text(
+                                valueFormatter.format(
+                                    dataView.single.value, 
+                                    dataView.metadata.columns[0].format
+                                )
+                            )
                             .attr({
                                 x: '50%',
                                 y: '50%',
