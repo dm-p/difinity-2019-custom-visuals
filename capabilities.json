@@ -12,7 +12,14 @@
         {
             "single": {
                 "role": "measure"
-            }
+            },
+            "conditions": [
+                { 
+                    "measure": { 
+                        "max": 1 
+                    } 
+                }
+            ]
         }
     ]
 }
