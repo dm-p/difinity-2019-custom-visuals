@@ -1,5 +1,18 @@
 {
-    "dataRoles": [],
+    "dataRoles": [
+        {
+            "displayName": "Measure",
+            "description": "Add your measure here to display its value in the card.",
+            "name": "measure",
+            "kind": "Measure"
+        }
+    ],
     "objects": {},
-    "dataViewMappings": []
+    "dataViewMappings": [
+        {
+            "single": {
+                "role": "measure"
+            }
+        }
+    ]
 }
