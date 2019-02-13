@@ -7,7 +7,32 @@
             "kind": "Measure"
         }
     ],
-    "objects": {},
+    "objects": {
+        "card": {
+            "displayName": "Card",
+            "description": "Options to manage how the card displays.",
+            "properties": {
+                "fillColour": {
+                    "displayName": "Fill Colour",
+                    "description": "Specifies the fill colour for the card.",
+                    "type": {
+                        "fill": {
+                            "solid": {
+                                "color": true
+                            }
+                        }
+                    }
+                },
+                "strokeWidth": {
+                    "displayName": "Stroke Width",
+                    "description": "Specifies the width of the card border.",
+                    "type": {
+                        "numeric": true
+                    }
+                }
+            }
+        }
+    },
     "dataViewMappings": [
         {
             "single": {
