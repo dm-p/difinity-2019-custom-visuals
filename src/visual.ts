@@ -75,6 +75,9 @@ module powerbi.extensibility.visual {
                 /** Parse our settings from the data view */
                     this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
 
+                 /** Grab the data view */
+                    let dataView: DataView = options.dataViews[0];
+
                 /** Position and render our visual & details */
 
                     /** Current dimensions of visual viewport */
