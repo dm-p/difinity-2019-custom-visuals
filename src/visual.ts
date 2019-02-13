@@ -179,6 +179,20 @@ module powerbi.extensibility.visual {
                                 color: this.settings.card.fillColour
                             });
 
+                    /** Iterate all tooltip fields and add them into the tooltips array */
+                        dataView.categorical.values.filter(
+                            c => c.source.roles['tooltip']
+                        )
+                            .map((m) => {
+                                tooltips.push({
+                                    displayName: m.source.displayName,
+                                    value: valueFormatter.format(
+                                        m.values[0],
+                                        m.source.format
+                                    )
+                                })
+                            });                            
+
                     /** Bind the tooltip event and data */
                         this.tooltipServiceWrapper.addTooltip(
                             this.svg,
