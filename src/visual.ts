@@ -66,12 +66,71 @@ module powerbi.extensibility.visual {
                         this.measureLabel = this.container
                             .append('text')
                             .classed('textLabel', true);
-                            
+
             }
 
         /** Runs when the visual is updated with valid data roles */
             public update(options: VisualUpdateOptions) {
-                this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
+
+                /** Parse our settings from the data view */
+                    this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
+
+                /** Position and render our visual & details */
+
+                    /** Current dimensions of visual viewport */
+                        let width: number = options.viewport.width;
+                        let height: number = options.viewport.height;
+
+                    /** Scale canvas to match viewport */
+                        this.svg.attr({
+                            width: width,
+                            height: height
+                        });
+
+                    /** Padding for rectangle */
+                        let padding: number = 2;
+
+                    /** Render the rectangle */
+                        this.rect
+                            .style('fill', 'white')
+                            .style('fill-opacity', 0.5)
+                            .style('stroke', 'black')
+                            .style('stroke-width', 5)
+                            .attr({
+                                x: padding,
+                                y: padding,
+                                width: width - (padding * 2),
+                                height: height - (padding * 2)
+                            });
+
+                    /** Measure value font size */
+                        let measureValueFontSize: number = Math.min(width, height) / 5;
+
+                    /** Render measure text */
+                        this.measureValue
+                            .text('Value')
+                            .attr({
+                                x: '50%',
+                                y: '50%',
+                                dy: '0.35em',
+                                'text-anchor': 'middle'
+                            })
+                            .style('font-size', `${measureValueFontSize}px`);
+
+                    /** Measure label font size */
+                        let measureLabelFontSize = measureValueFontSize / 4;
+
+                    /** Render measure label text */
+                        this.measureLabel
+                            .text('Label')
+                            .attr({
+                                x: '50%',
+                                y: height / 2,
+                                dy: measureValueFontSize / 1.2,
+                                'text-anchor': 'middle'
+                            })
+                            .style('font-size', `${measureLabelFontSize}px`);
+
             }
 
         /** Parses the settings out of the data view */
