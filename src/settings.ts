@@ -29,7 +29,21 @@ module powerbi.extensibility.visual {
     import DataViewObjectsParser = powerbi.extensibility.utils.dataview.DataViewObjectsParser;
 
     export class VisualSettings extends DataViewObjectsParser {
-      
+        
+        /** Instance of our card settings - note that the property name matches `capabilities.json` */
+              public card: CardSettings = new CardSettings();
+              
     }
+
+    /**
+     *  Manages the card settings in our visual - note that property names need to match that of 
+     *  `capabilities.json` in order to be included
+     */
+        export class CardSettings {
+            /** Fill Colour */
+                public fillColour: string = '#ffffff';
+            /** Stroke Width */
+                public strokeWidth: number = 2;
+        }
 
 }
