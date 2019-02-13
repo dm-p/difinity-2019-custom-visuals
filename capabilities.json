@@ -5,6 +5,12 @@
             "description": "Add your measure here to display its value in the card.",
             "name": "measure",
             "kind": "Measure"
+        },
+        {
+            "displayName": "Tooltip",
+            "description": "Additional measures to display in the tooltip.",
+            "name": "tooltip",
+            "kind": "Measure"
         }
     ],
     "objects": {
@@ -35,8 +41,21 @@
     },
     "dataViewMappings": [
         {
-            "single": {
-                "role": "measure"
+            "categorical": {
+                "values": {
+                    "select": [
+                        {
+                            "bind": {
+                                "to": "measure"
+                            }
+                        },
+                        {
+                            "bind": {
+                                "to": "tooltip"
+                            }
+                        }
+                    ]
+                }
             },
             "conditions": [
                 { 
