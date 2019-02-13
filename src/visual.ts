@@ -39,7 +39,34 @@ module powerbi.extensibility.visual {
 
         /** Runs on instantiation */
             constructor(options: VisualConstructorOptions) {
-                
+                            
+                /** Create elements for our visual */
+
+                    /** Main canvas */
+                        this.svg = d3.select(options.element)
+                            .append('svg')
+                            .classed('card', true);
+
+                    /** Group container for card */
+                        this.container = this.svg
+                            .append('g')
+                            .classed('container', true);
+
+                    /** Rectangle surrounding value & measure */
+                        this.rect = this.container
+                            .append('rect')
+                            .classed('rect', true);
+
+                    /** Measure */
+                        this.measureValue = this.container
+                            .append('text')
+                            .classed('textValue', true);
+
+                    /** Label */
+                        this.measureLabel = this.container
+                            .append('text')
+                            .classed('textLabel', true);
+                            
             }
 
         /** Runs when the visual is updated with valid data roles */
