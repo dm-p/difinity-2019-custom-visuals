@@ -27,7 +27,15 @@
 module powerbi.extensibility.visual {
     "use strict";
     export class Visual implements IVisual {
-        private settings: VisualSettings;
+        
+        /** Properties */
+            private settings: VisualSettings;
+            private host: IVisualHost;
+            private svg: d3.Selection<SVGElement>;
+            private container: d3.Selection<SVGElement>;
+            private rect: d3.Selection<SVGElement>;
+            private measureValue: d3.Selection<SVGElement>;
+            private measureLabel: d3.Selection<SVGElement>;
 
         /** Runs on instantiation */
             constructor(options: VisualConstructorOptions) {
