@@ -113,14 +113,24 @@ module powerbi.extensibility.visual {
                     /** Measure value font size */
                         let measureValueFontSize: number = Math.min(width, height) / 5;
 
+                    /** Filter out the measure label based on role */
+                        let measureDisplayLabel = dataView.metadata.columns.filter(
+                            c => c.roles['measure']
+                        )[0].displayName;
+
+                    /** Format the measure by filtering the value and format string based on role */
+                        let measureFormatted = valueFormatter.format(
+                                dataView.categorical.values.filter(
+                                    c => c.source.roles['measure']
+                                )[0].values[0],
+                                dataView.metadata.columns.filter(
+                                    c => c.roles['measure']
+                                )[0].format
+                            );
+
                     /** Render measure text */
                         this.measureValue
-                            .text(
-                                valueFormatter.format(
-                                    dataView.categorical.values[0].values[0], 
-                                    dataView.metadata.columns[0].format
-                                )
-                            )
+                            .text(measureFormatted)
                             .attr({
                                 x: '50%',
                                 y: '50%',
@@ -134,7 +144,7 @@ module powerbi.extensibility.visual {
 
                     /** Render measure label text */
                         this.measureLabel
-                            .text(dataView.metadata.columns[0].displayName)
+                            .text(measureDisplayLabel)
                             .attr({
                                 x: '50%',
                                 y: height / 2,
