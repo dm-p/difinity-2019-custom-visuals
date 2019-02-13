@@ -99,10 +99,10 @@ module powerbi.extensibility.visual {
 
                     /** Render the rectangle */
                         this.rect
-                            .style('fill', 'white')
+                            .style('fill', this.settings.card.fillColour)
                             .style('fill-opacity', 0.5)
                             .style('stroke', 'black')
-                            .style('stroke-width', 5)
+                            .style('stroke-width', this.settings.card.strokeWidth)
                             .attr({
                                 x: padding,
                                 y: padding,
