@@ -1,0 +1,3 @@
+module powerbi.extensibility.visual {
+
+}
