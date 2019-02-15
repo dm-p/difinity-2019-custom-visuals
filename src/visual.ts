@@ -28,9 +28,6 @@ module powerbi.extensibility.visual {
     "use strict";
 
     /** External dependencies */
-        
-        /** powerbi.extensibility.utils.formatting */
-            import valueFormatter = powerbi.extensibility.utils.formatting.valueFormatter;
 
         /** powerbi.extensibility.utils.tooltip */
             import tooltip = powerbi.extensibility.utils.tooltip;
@@ -93,112 +90,57 @@ module powerbi.extensibility.visual {
                 /** Parse our settings from the data view */
                     this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
 
-                 /** Grab the data view */
-                    let dataView: DataView = options.dataViews[0];
+                /** Map the view model */
+                    let viewModel = visualTransform(options, this.settings);
+
+                /** Inspect the view model in the browser console; should be removed later on */
+                    console.log('View Model:', viewModel); 
 
                 /** Position and render our visual & details */
 
-                    /** Current dimensions of visual viewport */
-                        let width: number = options.viewport.width;
-                        let height: number = options.viewport.height;
-
                     /** Scale canvas to match viewport */
                         this.svg.attr({
-                            width: width,
-                            height: height
+                            width: viewModel.dimensions.width,
+                            height: viewModel.dimensions.height
                         });
 
-                    /** Padding for rectangle */
-                        let padding: number = 2;
-
                     /** Render the rectangle */
-                        this.rect
-                            .style('fill', this.settings.card.fillColour)
-                            .style('fill-opacity', 0.5)
-                            .style('stroke', 'black')
-                            .style('stroke-width', this.settings.card.strokeWidth)
-                            .attr({
-                                x: padding,
-                                y: padding,
-                                width: width - (padding * 2),
-                                height: height - (padding * 2)
-                            });
-
-                    /** Measure value font size */
-                        let measureValueFontSize: number = Math.min(width, height) / 5;
-
-                    /** Filter out the measure label based on role */
-                        let measureDisplayLabel = dataView.metadata.columns.filter(
-                            c => c.roles['measure']
-                        )[0].displayName;
-
-                    /** Format the measure by filtering the value and format string based on role */
-                        let measureFormatted = valueFormatter.format(
-                                dataView.categorical.values.filter(
-                                    c => c.source.roles['measure']
-                                )[0].values[0],
-                                dataView.metadata.columns.filter(
-                                    c => c.roles['measure']
-                                )[0].format
-                            );
+                        viewModel.card.styles.map((s) => {
+                            this.rect.style(s.key, s.value);
+                        });
+                        viewModel.card.attributes.map((a) => {
+                            this.rect.attr(a.key, a.value);
+                        });
 
                     /** Render measure text */
                         this.measureValue
-                            .text(measureFormatted)
-                            .attr({
-                                x: '50%',
-                                y: '50%',
-                                dy: '0.35em',
-                                'text-anchor': 'middle'
-                            })
-                            .style('font-size', `${measureValueFontSize}px`);
-
-                    /** Measure label font size */
-                        let measureLabelFontSize = measureValueFontSize / 4;
+                            .text(viewModel.card.measureValue.text);
+                                    
+                        viewModel.card.measureValue.attributes.map((a) => {
+                            this.measureValue.attr(a.key, a.value);
+                        });
+                        viewModel.card.measureValue.styles.map((s) => {
+                            this.measureValue.style(s.key, s.value);
+                        });
 
                     /** Render measure label text */
                         this.measureLabel
-                            .text(measureDisplayLabel)
-                            .attr({
-                                x: '50%',
-                                y: height / 2,
-                                dy: measureValueFontSize / 1.2,
-                                'text-anchor': 'middle'
-                            })
-                            .style('font-size', `${measureLabelFontSize}px`);
+                            .text(viewModel.card.measureLabel.text);
 
-                /** Tooltip */
-
-                    /** Empty array of tooltip data */
-                        let tooltips: VisualTooltipDataItem[] = [];
-
-                    /** Add the measure data */
-                            tooltips.push({
-                                displayName: measureDisplayLabel,
-                                value: measureFormatted,
-                                color: this.settings.card.fillColour
-                            });
-
-                    /** Iterate all tooltip fields and add them into the tooltips array */
-                        dataView.categorical.values.filter(
-                            c => c.source.roles['tooltip']
-                        )
-                            .map((m) => {
-                                tooltips.push({
-                                    displayName: m.source.displayName,
-                                    value: valueFormatter.format(
-                                        m.values[0],
-                                        m.source.format
-                                    )
-                                })
-                            });                            
+                        viewModel.card.measureLabel.attributes.map((a) => {
+                            this.measureLabel.attr(a.key, a.value);
+                        });
+                        viewModel.card.measureLabel.styles.map((s) => {
+                            this.measureLabel.style(s.key, s.value);
+                        });
 
                     /** Bind the tooltip event and data */
-                        this.tooltipServiceWrapper.addTooltip(
-                            this.svg,
-                            (eventArgs: TooltipEventArgs<number>) => tooltips
-                        );
-
+                        if (viewModel.card.tooltips.length > 0) {
+                            this.tooltipServiceWrapper.addTooltip(
+                                this.svg,
+                                (eventArgs: TooltipEventArgs<number>) => viewModel.card.tooltips
+                            );
+                        }
 
             }
 
