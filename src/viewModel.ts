@@ -1,5 +1,11 @@
 module powerbi.extensibility.visual {
 
+    /** External dependencies */
+
+        /** powerbi.extensibility.utils.formatting */
+            import valueFormatter = powerbi.extensibility.utils.formatting.valueFormatter;
+
+
     /**
      *  Everything we need to render our visual
      * 
@@ -198,6 +204,33 @@ module powerbi.extensibility.visual {
              *  At this point, we know we have everything to manage a full render, so update the parts of the view
              *  model that we need to
              */
+
+                /** Update the measure details */
+                    viewModel.card.measureValue.text = valueFormatter.format(
+                        measureData.values[0],
+                        measureData.source.format
+                    );
+                    viewModel.card.measureLabel.text = measureData.source.displayName;
+        
+                /** Manage the tooltips */
+
+                    /** The measure value */
+                        viewModel.card.tooltips.push({
+                            displayName: viewModel.card.measureLabel.text,
+                            value: viewModel.card.measureValue.text,
+                            color: visualSettings.card.fillColour
+                        });
+
+                    /** Iterate through all fields in the Tooltip role and add to the tooltip array */
+                        tooltipData.map((t) => {
+                            viewModel.card.tooltips.push({
+                                displayName: t.source.displayName,
+                                value: valueFormatter.format(
+                                    t.values[0],
+                                    t.source.format
+                                )
+                            })
+                        });        
 
             /** Our resulting view model */
                 return viewModel;
