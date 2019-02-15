@@ -154,6 +154,51 @@ module powerbi.extensibility.visual {
                     }                
                 }
 
+            /** 
+             *  We now need to try and update the view model with the information from the data view.
+             * 
+             *  First, we'll get this and then we can do some tests to make sure that we're happy that the data view
+             *  conforms to our requirements before we proceed.
+             */
+                let dataViews = options.dataViews;
+
+            /** 
+             *  We need to test that we have the valid data view mapping, and that there are values inside it.
+             *  Otherwise, there's no point proceeding.
+             */
+                if (!dataViews
+                    || !dataViews[0]
+                    || !dataViews[0].metadata
+                    || !dataViews[0].categorical
+                    || !dataViews[0].categorical.values
+                ) {
+                    return viewModel;    
+                }
+
+            /** 
+             *  At this point, we can attempt to retrieve measure and tooltip fields from the data view as we know
+             *  that the structure is valid.
+             */
+                let measureData = dataViews[0].categorical.values.filter(
+                        c => c.source.roles['measure']
+                    )[0],
+                    tooltipData = dataViews[0].categorical.values.filter(
+                        c => c.source.roles['tooltip']
+                    );
+
+            /** 
+             *  One additional test to make sure that we have a field in the Measure role, otherwise we should not 
+             *  proceed. 
+             */
+                if (!measureData) {
+                    return viewModel;
+                }
+
+            /** 
+             *  At this point, we know we have everything to manage a full render, so update the parts of the view
+             *  model that we need to
+             */
+
             /** Our resulting view model */
                 return viewModel;
 
