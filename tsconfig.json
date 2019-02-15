@@ -15,6 +15,7 @@
     "node_modules/powerbi-visuals-utils-tooltiputils/lib/index.d.ts",
     "src/settings.ts",
     "src/visual.ts",
-    "src/interfaces.ts"
+    "src/interfaces.ts",
+    "src/viewModel.ts"
   ]
 }
