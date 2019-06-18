@@ -6,6 +6,18 @@ Each tag represents a specific step in the tutorial and can be reconciled agains
 
 You will need access to the [Power BI Custom Visuals SDK](https://microsoft.github.io/PowerBI-visuals/docs/step-by-step-lab/developing-a-power-bi-custom-visual/). Refer here for instructions on setting up the toolchain, certificate and developer visual. You can then run `npm i` to update your packages and then get started.
 
+----
+:exclamation: **Update [2019-06-19]:** Please note that if you're still referring to this guide, the Power BI Custom Visuals tooling has recently been updated to a new major version and this contains some breaking changes to older code. [The migration guide can be found here if you want to attempt this yourself](https://microsoft.github.io/PowerBI-visuals/docs/how-to-guide/migrating-to-powerbi-visuals-tools-3-0). 
+
+If you want to use this tutorial as-is, please change this line in the setup instructions on slide 9 of the presentation from:
+```
+npm i power-bi-visuals-tools -g
+```
+To:
+```
+npm i power-bi-visuals-tools@2.5 -g
+```
+----
 Enjoy!
 
 Daniel Marsh-Patrick
