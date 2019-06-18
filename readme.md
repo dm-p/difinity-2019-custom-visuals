@@ -15,7 +15,7 @@ npm i power-bi-visuals-tools -g
 ```
 To:
 ```
-npm i power-bi-visuals-tools@2.5 -g
+npm i power-bi-visuals-tools@2.3 -g
 ```
 ----
 Enjoy!
