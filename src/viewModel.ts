@@ -25,7 +25,7 @@ module powerbi.extensibility.visual {
      *  @param {VisualUpdateOptions} options        - Visual update options (passed through from `update` method)
      *  @param {VisualSettings} visualSettings      - Parsed visual settings
      */
-        export function visualTransform(options: VisualUpdateOptions, visualSettings: VisualSettings): IViewModel {
+        export function visualTransform(options: VisualUpdateOptions, visualSettings: VisualSettings, host: IVisualHost): IViewModel {
 
             /** Current dimensions of visual viewport */
                 let viewportWidth: number = options.viewport.width,
@@ -156,7 +156,8 @@ module powerbi.extensibility.visual {
                                 }
                             ]
                         },
-                        tooltips: []
+                        tooltips: [],
+                        measureSelectionId: null
                     }                
                 }
 
@@ -230,7 +231,11 @@ module powerbi.extensibility.visual {
                                     t.source.format
                                 )
                             })
-                        });        
+                        });
+
+                    /** Add selection ID to measure for report page tooltips */
+                        viewModel.card.measureSelectionId = host.createSelectionIdBuilder()
+                            .withMeasure(measureData.source.queryName);
 
             /** Our resulting view model */
                 return viewModel;

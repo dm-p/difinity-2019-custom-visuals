@@ -1,4 +1,4 @@
-{
+    {
     "dataRoles": [
         {
             "displayName": "Measure",
@@ -65,5 +65,14 @@
                 }
             ]
         }
-    ]
+    ],
+    "tooltips": {
+        "supportedTypes": {
+            "default": true,
+            "canvas": true
+        },
+        "roles": [
+            "tooltip"
+        ]
+    }
 }

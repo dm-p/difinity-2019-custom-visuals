@@ -41,6 +41,7 @@ module powerbi.extensibility.visual {
             measureValue: ICardText;
             measureLabel: ICardText;
             tooltips?: VisualTooltipDataItem[];
+            measureSelectionId: ISelectionId;
         }
 
     /**

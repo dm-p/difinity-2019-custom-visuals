@@ -48,6 +48,8 @@ module powerbi.extensibility.visual {
 
         /** Runs on instantiation */
             constructor(options: VisualConstructorOptions) {
+
+                this.host = options.host;
                             
                 /** Create elements for our visual */
 
@@ -91,7 +93,7 @@ module powerbi.extensibility.visual {
                     this.settings = Visual.parseSettings(options && options.dataViews && options.dataViews[0]);
 
                 /** Map the view model */
-                    let viewModel = visualTransform(options, this.settings);
+                    let viewModel = visualTransform(options, this.settings, this.host);
 
                 /** Inspect the view model in the browser console; should be removed later on */
                     console.log('View Model:', viewModel); 
@@ -138,7 +140,8 @@ module powerbi.extensibility.visual {
                         if (viewModel.card.tooltips.length > 0) {
                             this.tooltipServiceWrapper.addTooltip(
                                 this.svg,
-                                (eventArgs: TooltipEventArgs<number>) => viewModel.card.tooltips
+                                (eventArgs: TooltipEventArgs<number>) => viewModel.card.tooltips,
+                                (eventArgs: TooltipEventArgs<number>) => viewModel.card.measureSelectionId
                             );
                         }
 
